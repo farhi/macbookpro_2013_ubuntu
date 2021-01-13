@@ -1,7 +1,7 @@
 # macbookpro_2013_ubuntu
 A short note on installing a Debian/Ubuntu system onto a MacBookPro 11.1 from late-2013 (retina)
 
-The late-2013 MacBookPro (retina display) is an old Apple laptop. It's main advantage is that there is no T2 chip (as oposed to recent models) to block the installation of other systems than MacOS X.
+The late-2013 MacBookPro (retina display) is an old Apple laptop. It's main advantage is that there is no T2 chip (as opposed to recent models) to block the installation of other systems than MacOS X.
 
 The hardware is as follows:
 - CPU: Intel Corporation Haswell-ULT Intel(R) Core(TM) 2 cores/4 threads
@@ -14,16 +14,15 @@ There is a known hardware failure on these machines. The SD-card reader becomes 
 Ubuntu/Debian installation
 ==========================
 
-The installation over MacOS X is rather simple. Start to upgrade the MacOS X system (which often srews-up the GRUB boot loader).
+The installation over MacOS X is rather simple. Start to upgrade the MacOS X system (which often screws-up the GRUB boot loader).
 
 Reduce the Mac OSX partition size, so that there is room for the new system. You may have to restart under the _Recovery_ mode. Use `Command-R` key for that. Open the _Disk Utility_ 
 
 Then create with [UNetBootIn](https://unetbootin.github.io/) a USB bootable key with e.g. Debian 10 or Ubuntu 20.04. 
-UnetBooIn has the advantage that the boot is effective from the Mac EFI. Other USB creators may fail.
+UnetBootIn has the advantage that the boot is effective from the Mac EFI. Other USB creators may fail.
 
 Boot the machine and hold the _Alt_ key. The EFI boot selector shows up. Select the yellow `EFI boot` item (usually on the right side, after Mac OSX).
-Then install the system in the available space with the _Try Ubuntu_ item. GRUB will be set-up.
-After installation, do not reboot.
+Then install the system in the available space with the _Try Ubuntu_ item. GRUB will be set-up. Reboot.
 
 Boot loader
 -----------
@@ -60,6 +59,16 @@ sudo modprobe facetimehd
 ```
 
 Then edit `sudo gedit /etc/modules` and add `facetimehd` at the end.
+
+:warning: if you get an error looking like:
+```
+bcwc_pcie/fthd_drv.h:122:40: error: missing binary operator before token "("
+ #if LINUX_VERSION_CODE < KERNEL_VERSION(4,8,0)
+```
+at `make`, simply add a line at the top of file `bcwc_pcie/fthd_drv.h`:
+```
+#include "linux/version.h"
+```
 
 
 Hardware support
