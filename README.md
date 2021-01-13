@@ -69,7 +69,12 @@ at `make`, simply add a line at the top of file `bcwc_pcie/fthd_drv.h`:
 ```
 #include "linux/version.h"
 ```
-
+If an error `Warning: modules_install: missing 'System.map' file. Skipping depmod.` appears at `sudo make install`, edit the Makefile and change the `install` rule with:
+```
+install:
+	cp facetimehd.ko /lib/modules/$(shell uname -r)/extra
+	depmod -a
+```
 
 Hardware support
 ================
